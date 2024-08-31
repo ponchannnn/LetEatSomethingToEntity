@@ -1,0 +1,4 @@
+name: LetEatSomethingToEntity
+version: '${project.version}'
+main: com.ponchannn.leteatsomethingtoentity.LetEatSomethingToEntity
+api-version: '1.21'
