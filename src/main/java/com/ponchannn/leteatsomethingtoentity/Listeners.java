@@ -42,7 +42,7 @@ public class Listeners implements Listener {
         }
         // 食べ物かつ対象がプレイヤーの場合
         else if (isFood(material) && targetEntity instanceof Player targetPlayer) {
-            applyFoodEffect(targetPlayer, itemStack);
+            applyFoodEffect(player, targetPlayer, itemStack);
             itemStack.setAmount(itemStack.getAmount() - 1);
             targetEntity.getWorld().playSound(targetEntity.getLocation(), Sound.ENTITY_GENERIC_EAT, 1.0f, 1.0f);
         }
@@ -107,95 +107,95 @@ public class Listeners implements Listener {
         return material == Material.POTION;
     }
 
-    private void applyFoodEffect (Player player, ItemStack itemStack) {
+    private void applyFoodEffect (Player me, Player targetPlayer, ItemStack itemStack) {
         Material material = itemStack.getType();
         switch (material) {
-            case APPLE -> setHunger(player, 4, 2.4f);
-            case BAKED_POTATO -> setHunger(player, 5, 6.0f);
-            case BEEF -> setHunger(player, 3, 1.8f);
-            case BEETROOT -> setHunger(player, 1, 1.2f);
-            case BEETROOT_SOUP -> returnItemAfterConsumption(player, 6, 7.2f, new ItemStack(Material.BOWL));
-            case BREAD -> setHunger(player, 5, 6.0f);
-            case CARROT -> setHunger(player, 3, 3.6f);
-            case CHICKEN -> setHunger(player, 3, 1.8f);
+            case APPLE -> setHunger(targetPlayer, 4, 2.4f);
+            case BAKED_POTATO -> setHunger(targetPlayer, 5, 6.0f);
+            case BEEF -> setHunger(targetPlayer, 3, 1.8f);
+            case BEETROOT -> setHunger(targetPlayer, 1, 1.2f);
+            case BEETROOT_SOUP -> returnItemAfterConsumption(me, 6, 7.2f, new ItemStack(Material.BOWL));
+            case BREAD -> setHunger(targetPlayer, 5, 6.0f);
+            case CARROT -> setHunger(targetPlayer, 3, 3.6f);
+            case CHICKEN -> setHunger(targetPlayer, 3, 1.8f);
             case CHORUS_FRUIT -> {
-                setHunger(player, 4, 2.4f);
-                playerTeleport(player);
+                setHunger(targetPlayer, 4, 2.4f);
+                playerTeleport(targetPlayer);
             }
-            case COD -> setHunger(player, 2, 0.4f);
-            case COOKED_BEEF -> setHunger(player, 8, 12.8f);
-            case COOKED_CHICKEN -> setHunger(player, 6, 7.2f);
-            case COOKED_COD -> setHunger(player, 5, 6.0f);
-            case COOKED_MUTTON -> setHunger(player, 6, 9.6f);
-            case COOKED_PORKCHOP -> setHunger(player, 8, 12.8f);
-            case COOKED_RABBIT -> setHunger(player, 5, 6.0f);
-            case COOKED_SALMON -> setHunger(player, 6, 9.6f);
-            case COOKIE -> setHunger(player, 2, 0.4f);
-            case DRIED_KELP -> setHunger(player, 1, 0.6f);
+            case COD -> setHunger(targetPlayer, 2, 0.4f);
+            case COOKED_BEEF -> setHunger(targetPlayer, 8, 12.8f);
+            case COOKED_CHICKEN -> setHunger(targetPlayer, 6, 7.2f);
+            case COOKED_COD -> setHunger(targetPlayer, 5, 6.0f);
+            case COOKED_MUTTON -> setHunger(targetPlayer, 6, 9.6f);
+            case COOKED_PORKCHOP -> setHunger(targetPlayer, 8, 12.8f);
+            case COOKED_RABBIT -> setHunger(targetPlayer, 5, 6.0f);
+            case COOKED_SALMON -> setHunger(targetPlayer, 6, 9.6f);
+            case COOKIE -> setHunger(targetPlayer, 2, 0.4f);
+            case DRIED_KELP -> setHunger(targetPlayer, 1, 0.6f);
             case ENCHANTED_GOLDEN_APPLE -> {
-                setHunger(player, 4, 9.6f);
+                setHunger(targetPlayer, 4, 9.6f);
                 // エンチャントされた金リンゴの特殊効果
-                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 20, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 20 * 5 * 60, 0));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 5 * 60, 0));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 2 * 60, 3));
+                targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 20, 1));
+                targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 20 * 5 * 60, 0));
+                targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20 * 5 * 60, 0));
+                targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 2 * 60, 3));
             }
-            case GLOW_BERRIES -> setHunger(player, 2, 0.4f);
+            case GLOW_BERRIES -> setHunger(targetPlayer, 2, 0.4f);
             case GOLDEN_APPLE -> {
-                setHunger(player, 4, 9.6f);
+                setHunger(targetPlayer, 4, 9.6f);
                 // 金リンゴの特殊効果
-                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
+                targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
+                targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0));
             }
-            case GOLDEN_CARROT -> setHunger(player, 6, 14.4f);
+            case GOLDEN_CARROT -> setHunger(targetPlayer, 6, 14.4f);
             case HONEY_BOTTLE -> {
                 // はちみつ入り瓶の毒解除効果
-                player.removePotionEffect(PotionEffectType.POISON);
-                returnItemAfterConsumption(player, 6, 1.2f, new ItemStack(Material.GLASS_BOTTLE));
+                targetPlayer.removePotionEffect(PotionEffectType.POISON);
+                returnItemAfterConsumption(me, 6, 1.2f, new ItemStack(Material.GLASS_BOTTLE));
             }
-            case MELON_SLICE -> setHunger(player, 2, 1.2f);
-            case MUSHROOM_STEW -> setHunger(player, 6, 7.2f);
-            case MUTTON -> setHunger(player, 2, 1.2f);
+            case MELON_SLICE -> setHunger(targetPlayer, 2, 1.2f);
+            case MUSHROOM_STEW -> setHunger(targetPlayer, 6, 7.2f);
+            case MUTTON -> setHunger(targetPlayer, 2, 1.2f);
             case POISONOUS_POTATO -> {
-                setHunger(player, 2, 1.2f);
+                setHunger(targetPlayer, 2, 1.2f);
                 // 毒じゃがいもの特殊効果
                 if (Math.random() < 0.6) {
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
+                    targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
                 }
             }
-            case PORKCHOP -> setHunger(player, 3, 1.8f);
-            case POTATO -> setHunger(player, 1, 0.6f);
+            case PORKCHOP -> setHunger(targetPlayer, 3, 1.8f);
+            case POTATO -> setHunger(targetPlayer, 1, 0.6f);
             case PUFFERFISH -> {
-                setHunger(player, 1, 0.2f);
+                setHunger(targetPlayer, 1, 0.2f);
                 // フグの特殊効果
-                player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 1200, 1));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 300, 2));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 300, 0));
+                targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 1200, 1));
+                targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 300, 2));
+                targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 300, 0));
             }
-            case PUMPKIN_PIE -> setHunger(player, 8, 4.8f);
-            case RABBIT -> setHunger(player, 3, 1.8f);
-            case RABBIT_STEW -> setHunger(player, 10, 12.0f);
+            case PUMPKIN_PIE -> setHunger(targetPlayer, 8, 4.8f);
+            case RABBIT -> setHunger(targetPlayer, 3, 1.8f);
+            case RABBIT_STEW -> setHunger(targetPlayer, 10, 12.0f);
             case ROTTEN_FLESH -> {
-                setHunger(player, 4, 0.8f);
+                setHunger(targetPlayer, 4, 0.8f);
                 // 腐った肉の特殊効果
                 if (Math.random() < 0.8) {
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
+                    targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0));
                 }
             }
-            case SALMON -> setHunger(player, 2, 0.4f);
+            case SALMON -> setHunger(targetPlayer, 2, 0.4f);
             case SPIDER_EYE -> {
-                setHunger(player, 2, 3.2f);
+                setHunger(targetPlayer, 2, 3.2f);
                 // クモの目の特殊効果
-                player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
+                targetPlayer.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
             }
             case SUSPICIOUS_STEW -> {
-                applySuspiciousStewEffect(player, itemStack);
-                returnItemAfterConsumption(player, 6, 7.2f, new ItemStack(Material.BOWL));
+                applySuspiciousStewEffect(targetPlayer, itemStack);
+                returnItemAfterConsumption(me, 6, 7.2f, new ItemStack(Material.BOWL));
             } // 効果はランダムで異なる
-            case SWEET_BERRIES -> setHunger(player, 2, 0.4f);
-            case TROPICAL_FISH -> setHunger(player, 1, 0.2f);
+            case SWEET_BERRIES -> setHunger(targetPlayer, 2, 0.4f);
+            case TROPICAL_FISH -> setHunger(targetPlayer, 1, 0.2f);
             default -> {
-                if (itemStack.getItemMeta().hasFood()) setHunger(player, itemStack.getItemMeta().getFood().getNutrition(), itemStack.getItemMeta().getFood().getSaturation()); // デフォルト（対応していない場合）
+                if (itemStack.getItemMeta().hasFood()) setHunger(targetPlayer, itemStack.getItemMeta().getFood().getNutrition(), itemStack.getItemMeta().getFood().getSaturation()); // デフォルト（対応していない場合）
             }
         }
     }
