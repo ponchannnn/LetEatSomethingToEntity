@@ -9,8 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.inventory.meta.SuspiciousStewMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -212,8 +212,8 @@ public class Listeners implements Listener {
     }
 
     private void applySuspiciousStewEffect(Player player, ItemStack stew) {
-        ItemMeta itemMeta = stew.getItemMeta();
-        itemMeta.getFood().getEffects().forEach(foodEffect -> foodEffect.getEffect().apply((LivingEntity) player));
+        SuspiciousStewMeta stewMeta =(SuspiciousStewMeta) stew.getItemMeta();
+        if (stewMeta.hasCustomEffects()) stewMeta.getCustomEffects().forEach(potionEffect -> potionEffect.apply((LivingEntity) player));
     }
 
     private void applyPotionEffect(LivingEntity entity, ItemStack potion) {
