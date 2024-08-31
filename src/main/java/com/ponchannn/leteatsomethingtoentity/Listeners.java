@@ -226,10 +226,10 @@ public class Listeners implements Listener {
     private void playerTeleport(Player player) {
         Location location = player.getLocation();
 
-        for (int i = 0 ; i < 32; i++) {
-            double offsetX = Math.random() * 64 - 32;
-            double offsetY = Math.random() * 64 - 32;
-            double offsetZ = Math.random() * 64 - 32;
+        for (int i = 0 ; i < 16; i++) {
+            double offsetX = Math.random() * 8 - 4;
+            double offsetY = Math.random() * 8 - 4;
+            double offsetZ = Math.random() * 8 - 4;
 
             Location targetLocation = location.clone().add(offsetX, offsetY, offsetZ);
 
@@ -246,7 +246,7 @@ public class Listeners implements Listener {
     }
 
     private Location findSolidBlockBelow(Location location, int originalY) {
-        for (int y = location.getBlockY(); y > originalY - 32; y--) {
+        for (int y = location.getBlockY(); y > originalY - 4; y--) {
             Location checkLocation = new Location(location.getWorld(), location.getX(), y, location.getZ());
             Material blockType = checkLocation.getBlock().getType();
 
