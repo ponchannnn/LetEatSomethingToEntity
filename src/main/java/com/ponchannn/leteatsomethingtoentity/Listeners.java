@@ -41,7 +41,7 @@ public class Listeners implements Listener {
             targetEntity.getWorld().playSound(targetEntity.getLocation(), Sound.ENTITY_GENERIC_DRINK, 1.0f, 1.0f);
         }
         // 食べ物かつ対象がプレイヤーの場合
-        else if (isFood(material) && targetEntity instanceof Player targetPlayer) {
+        else if (isFood(material) && targetEntity instanceof Player targetPlayer && canEat(targetPlayer, material)) {
             applyFoodEffect(player, targetPlayer, itemStack);
             itemStack.setAmount(itemStack.getAmount() - 1);
             targetEntity.getWorld().playSound(targetEntity.getLocation(), Sound.ENTITY_GENERIC_EAT, 1.0f, 1.0f);
